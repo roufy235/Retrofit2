@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class PostModel(
     @SerializedName("id")
-    val id: Int = 0,
+    val id: Int,
     @SerializedName("title")
-    val title: String = "",
+    val title: String,
     @SerializedName("body")
-    val body: String = "",
+    val body: String,
     @SerializedName("userId")
-    val userId: Int = 0
+    val userId: Int
 )

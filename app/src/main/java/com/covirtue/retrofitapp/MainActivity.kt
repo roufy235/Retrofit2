@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.covirtue.retrofitapp.api.JsonPlaceholderAPI
 import com.covirtue.retrofitapp.models.PostComments
 import com.covirtue.retrofitapp.models.PostModel
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +36,36 @@ class MainActivity : AppCompatActivity() {
         getComments(commentsCall)
 
 
+        val post = PostModel(
+            0,
+            "",
+            "",
+            3
+        )
 
+        val sendPost = api.createPost(post)
+        getSendPostResults(sendPost)
+
+
+    }
+
+    private fun getSendPostResults(sendPost: Call<PostModel>) {
+        sendPost.enqueue(object : Callback<PostModel> {
+            override fun onFailure(call: Call<PostModel>?, t: Throwable?) {
+                Toast.makeText(this@MainActivity, t?.message.toString(), Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<PostModel>?, response: Response<PostModel>?) {
+                if (response != null) {
+                    if (response.isSuccessful) {
+
+                    }
+                } else {
+                    Toast.makeText(this@MainActivity, "null", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
     }
 
     private fun getComments(commentsCall: Call<List<PostComments>>) {
